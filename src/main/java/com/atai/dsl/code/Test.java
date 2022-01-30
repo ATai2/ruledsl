@@ -9,12 +9,33 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class Test {
     public static void main(String[] args) {
 //        init();
-        translateInt2Unicode();
+//        translateInt2Unicode();
+        expression();
     }
 
+    private static void expression() {
+//        try {
+//            String inputFile = null;
+//            ANTLRInputStream input = new ANTLRInputStream(new FileInputStream(inputFile));
+        String str = "2*3\n";
+//        String str = "1+34*8-5/2";
+        try {
+            ANTLRInputStream inputStream = new ANTLRInputStream(str.toCharArray(), str.length());
+            HelloLexer lexer = new HelloLexer(inputStream);
+            CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+            HelloParser parser = new HelloParser(tokenStream);
+            ParseTree tree = parser.prog();
+            System.out.println(tree.toStringTree());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     /**
